@@ -1,0 +1,12 @@
+<template>
+  <v-app-bar app color="primary" flat>
+    <v-toolbar-title>PetShop</v-toolbar-title>
+    <v-spacer />
+    <v-btn to="/products" class="mx-2" color="white"> PRODUCTS </v-btn>
+    <v-btn to="/promotions" class="mx-2" color="white"> PROMOTIONS </v-btn>
+    <v-btn to="/blog" class="mx-2" color="white"> BLOG </v-btn>
+    <v-spacer />
+    <v-btn color="white"> <v-icon>mdi-cart</v-icon> Cart </v-btn>
+    <v-btn color="white"> <v-icon>mdi-logout</v-icon> Logout </v-btn>
+  </v-app-bar>
+</template>
