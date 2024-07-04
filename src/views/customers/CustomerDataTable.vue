@@ -88,7 +88,6 @@ const formatDate = (date) => {
 }
 
 const loadItems = async () => {
-  console.info(filters.value)
   loading.value = true
   const queryParams = {
     page: options.value.page,
