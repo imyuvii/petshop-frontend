@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+const API_BASE_URL = import.meta.env.BASE_URL
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('token') as string | null,
@@ -10,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
     async login(email: string, password: string) {
       try {
         const response = await axios.post(
-          'https://pet-shop.buckhill.com.hr/api/v1/admin/login',
+          `${API_BASE_URL}/admin/login`,
           `email=${email}&password=${password}`,
           {
             headers: {
