@@ -33,9 +33,6 @@ export const useCustomerStore = defineStore('customer', () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/admin/user-listing`, {
         params: requestParams,
-        headers: {
-          Authorization: `Bearer ${authStore.getToken}`
-        }
       })
 
       if (response.data && response.data.data) {
@@ -53,11 +50,7 @@ export const useCustomerStore = defineStore('customer', () => {
 
   const deleteCustomer = async (uuid: string) => {
     try {
-      await axios.delete(`${API_BASE_URL}/admin/user-delete/${uuid}`, {
-        headers: {
-          Authorization: `Bearer ${authStore.getToken}`
-        }
-      })
+      await axios.delete(`${API_BASE_URL}/admin/user-delete/${uuid}`,)
     } catch (error) {
       console.error('Error deleting customer:', error)
     }
