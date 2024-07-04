@@ -14,7 +14,18 @@ export const useCustomerStore = defineStore('customer', () => {
 
   const fetchCustomers = async (options: any = {}) => {
     loading.value = true
-    const { page = 1, itemsPerPage = 5, sortBy = [], sortDesc = [], search = '' } = options
+    const {
+      page = 1,
+      itemsPerPage = 5,
+      sortBy = [],
+      sortDesc = [],
+      name,
+      email,
+      phone,
+      address,
+      created_at,
+      marketing
+    } = options
     const sort = sortBy.length ? `${sortBy[0]} ${sortDesc[0] ? 'desc' : 'asc'}` : ''
 
     try {
@@ -23,7 +34,12 @@ export const useCustomerStore = defineStore('customer', () => {
           page,
           limit: itemsPerPage,
           sort,
-          search
+          first_name: name,
+          email,
+          phone,
+          address,
+          created_at,
+          marketing
         },
         headers: {
           Authorization: `Bearer ${authStore.getToken}`

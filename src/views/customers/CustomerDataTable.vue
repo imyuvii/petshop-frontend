@@ -9,7 +9,7 @@
       </v-btn>
     </v-toolbar>
 
-    <Filters :filters="filters" :showFilters="showFilters" @resetFilters="resetFilters" />
+    <CustomerFilters :filters="filters" :showFilters="showFilters" @resetFilters="resetFilters" />
 
     <v-data-table-server
       loading-text="Loading... Please wait"
@@ -37,7 +37,7 @@
 import { ref, watch, onMounted, computed } from 'vue'
 import { useCustomerStore } from '@/stores/customer'
 import debounce from 'lodash/debounce'
-import Filters from './Filters.vue'
+import CustomerFilters from '@/views/customers/CustomerFilters.vue'
 
 const headers = ref([
   { title: 'Name', value: 'name' },
@@ -136,9 +136,3 @@ onMounted(() => {
   loadItems()
 })
 </script>
-
-<style scoped>
-.absolute-filters {
-  background-color: #f5f5f5; /* Match the v-card header color */
-}
-</style>
