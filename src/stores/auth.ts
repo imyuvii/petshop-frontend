@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-const API_BASE_URL :string = import.meta.env.VITE_API_BASE_URL
+const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -52,3 +52,8 @@ export const useAuthStore = defineStore('auth', {
     getToken: (state) => state.token
   }
 })
+
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}

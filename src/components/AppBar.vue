@@ -11,14 +11,14 @@
   </v-app-bar>
 </template>
 <script setup lang="ts">
-import { useAuthStore } from '../stores/auth';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
 
-const authStore = useAuthStore();
-const router = useRouter();
+const authStore = useAuthStore()
+const router = useRouter()
 
 const logout = async () => {
-    await authStore.logout();
-    await router.push('/login');
-};
+  await authStore.logout()
+  await router.push('/login')
+}
 </script>
