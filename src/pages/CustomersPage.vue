@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import CustomersDataTable from '@/views/customers/CustomersDataTable.vue'
+import CustomersDataTable from '@/views/customers/CustomerDataTable.vue'
 </script>
