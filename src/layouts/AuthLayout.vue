@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-main>
-      <v-container class="fill-height" fluid>
-        <v-row justify="center" align="center">
+      <v-container class="fill-height d-flex align-center justify-center" fluid>
+        <v-row justify="center">
           <v-col cols="12" md="4">
-            <router-view></router-view>
+            <router-view />
           </v-col>
         </v-row>
       </v-container>

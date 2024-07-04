@@ -9,6 +9,7 @@ import PromotionsPage from '@/pages/PromotionsPage.vue'
 import LoginPage from '@/pages/LoginPage.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +25,8 @@ const router = createRouter({
         { path: 'all-tickets', name: 'allTickets', component: AllTicketsPage },
         { path: 'blog', name: 'blog', component: BlogPage },
         { path: 'promotions', name: 'promotions', component: PromotionsPage }
-      ]
+      ],
+      meta: { requiresAuth: true }
     },
     {
       path: '/',
@@ -32,6 +34,17 @@ const router = createRouter({
       children: [{ path: 'login', name: 'login', component: LoginPage }]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+  if (to.meta.requiresAuth && !authStore.getToken) {
+    next({ name: 'login' })
+  } else if (to.name === 'login' && authStore.getToken) {
+    next({ path: '/' })
+  } else {
+    next()
+  }
 })
 
 export default router
