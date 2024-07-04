@@ -7,6 +7,18 @@
     <v-btn to="/blog" class="mx-2" color="white"> BLOG </v-btn>
     <v-spacer />
     <v-btn color="white"> <v-icon>mdi-cart</v-icon> Cart </v-btn>
-    <v-btn color="white"> <v-icon>mdi-logout</v-icon> Logout </v-btn>
+    <v-btn color="white" @click="logout"> <v-icon>mdi-logout</v-icon> Logout </v-btn>
   </v-app-bar>
 </template>
+<script setup lang="ts">
+import { useAuthStore } from '../stores/auth';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+const logout = async () => {
+    await authStore.logout();
+    await router.push('/login');
+};
+</script>
