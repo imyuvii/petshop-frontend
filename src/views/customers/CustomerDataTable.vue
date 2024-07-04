@@ -40,19 +40,18 @@ import debounce from 'lodash/debounce'
 import CustomerFilters from '@/views/customers/CustomerFilters.vue'
 
 const headers = ref([
-  { title: 'Name', value: 'name' },
-  { title: 'Email', value: 'email' },
-  { title: 'Phone', value: 'phone' },
-  { title: 'Address', value: 'address' },
-  { title: 'Date Created', value: 'created_at' },
-  { title: 'Marketing Preferences', value: 'marketing_preferences' }
+  { title: 'Name', value: 'name', sortable: true },
+  { title: 'Email', value: 'email', sortable: true },
+  { title: 'Phone', value: 'phone', sortable: true },
+  { title: 'Address', value: 'address', sortable: true },
+  { title: 'Date Created', value: 'created_at', sortable: true },
+  { title: 'Marketing Preferences', value: 'marketing_preferences', sortable: true }
 ])
 
 const options = ref({
   page: 1,
   itemsPerPage: 10,
   sortBy: [],
-  sortDesc: []
 })
 
 const showFilters = ref(false)
@@ -92,8 +91,7 @@ const loadItems = async () => {
   const queryParams = {
     page: options.value.page,
     itemsPerPage: options.value.itemsPerPage,
-    sortBy: options.value.sortBy,
-    sortDesc: options.value.sortDesc,
+    sortBy: options.value.sortBy.length > 0 ? options.value.sortBy[0] : undefined,
     name: filters.value.name,
     email: filters.value.email,
     phone: filters.value.phone,

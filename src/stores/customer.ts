@@ -17,8 +17,7 @@ export const useCustomerStore = defineStore('customer', () => {
     const {
       page = 1,
       itemsPerPage = 5,
-      sortBy = [],
-      sortDesc = [],
+      sortBy,
       name,
       email,
       phone,
@@ -26,21 +25,24 @@ export const useCustomerStore = defineStore('customer', () => {
       created_at,
       marketing
     } = options
-    const sort = sortBy.length ? `${sortBy[0]} ${sortDesc[0] ? 'desc' : 'asc'}` : ''
 
+    const requestParams = {
+      page,
+      limit: itemsPerPage,
+      first_name: name,
+      email,
+      phone,
+      address,
+      created_at,
+      marketing
+    };
+    if(sortBy) {
+      requestParams.sortBy = sortBy.key
+      requestParams.desc = sortBy.order == 'desc'
+    }
     try {
       const response = await axios.get(`${API_BASE_URL}/admin/user-listing`, {
-        params: {
-          page,
-          limit: itemsPerPage,
-          sort,
-          first_name: name,
-          email,
-          phone,
-          address,
-          created_at,
-          marketing
-        },
+        params: requestParams,
         headers: {
           Authorization: `Bearer ${authStore.getToken}`
         }
