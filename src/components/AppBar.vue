@@ -1,7 +1,10 @@
 <template>
   <v-app-bar app color="primary" flat>
     <v-spacer />
-    <v-toolbar-title><router-link to="/"><img src="@/assets/logo.svg" alt="Logo" class="logo" height="25" /></router-link></v-toolbar-title>
+    <v-toolbar-title
+      ><router-link to="/"
+        ><img src="@/assets/logo.svg" alt="Logo" class="logo" height="25" /></router-link
+    ></v-toolbar-title>
     <v-spacer />
     <v-btn to="/products" class="mx-2" color="white"> PRODUCTS </v-btn>
     <v-btn to="/promotions" class="mx-2" color="white"> PROMOTIONS </v-btn>

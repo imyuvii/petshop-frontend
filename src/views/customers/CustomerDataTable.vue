@@ -51,7 +51,7 @@ const headers = ref([
 const options = ref({
   page: 1,
   itemsPerPage: 10,
-  sortBy: [],
+  sortBy: []
 })
 
 const showFilters = ref(false)

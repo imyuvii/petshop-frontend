@@ -14,31 +14,21 @@ export const useCustomerStore = defineStore('customer', () => {
 
   const fetchCustomers = async (options: any = {}) => {
     loading.value = true
-    const {
-      page = 1,
-      itemsPerPage = 5,
-      sortBy,
-      name,
-      email,
-      phone,
-      address,
-      created_at,
-      marketing
-    } = options
 
     const requestParams = {
-      page,
-      limit: itemsPerPage,
-      first_name: name,
-      email,
-      phone,
-      address,
-      created_at,
-      marketing
-    };
-    if(sortBy) {
-      requestParams.sortBy = sortBy.key
-      requestParams.desc = sortBy.order == 'desc'
+      page: options.page || 1,
+      limit: options.itemsPerPage || 5,
+      first_name: options.name,
+      email: options.email,
+      phone: options.phone,
+      address: options.address,
+      created_at: options.created_at,
+      marketing: options.marketing
+    }
+
+    if (options.sortBy) {
+      requestParams.sortBy = options.sortBy.key
+      requestParams.desc = options.sortBy.order == 'desc'
     }
     try {
       const response = await axios.get(`${API_BASE_URL}/admin/user-listing`, {
