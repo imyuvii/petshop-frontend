@@ -51,10 +51,23 @@ export const useCustomerStore = defineStore('customer', () => {
     }
   }
 
+  const deleteCustomer = async (uuid: string) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/admin/user-delete/${uuid}`, {
+        headers: {
+          Authorization: `Bearer ${authStore.getToken}`
+        }
+      })
+    } catch (error) {
+      console.error('Error deleting customer:', error)
+    }
+  }
+
   return {
     customers,
     totalItems,
     loading,
-    fetchCustomers
+    fetchCustomers,
+    deleteCustomer
   }
 })

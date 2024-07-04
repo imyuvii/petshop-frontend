@@ -3,7 +3,7 @@
     <v-toolbar flat>
       <v-toolbar-title>All Customers</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" to="/customers/create"> <v-icon>mdi-plus</v-icon> Add Customer </v-btn>
+      <v-btn color="primary"> <v-icon>mdi-plus</v-icon> Add Customer </v-btn>
       <v-btn @click="showFilters = !showFilters">
         <v-icon>mdi-filter-variant</v-icon> Filters
       </v-btn>
@@ -26,6 +26,14 @@
           {{ item.marketing_preferences }}
         </v-chip>
       </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <DataTableActions
+          :item="item"
+          :currentOpenButton="currentOpenButton"
+          @toggle="toggleButton"
+          @delete="deleteCustomer"
+        />
+      </template>
     </v-data-table-server>
   </v-card>
   <v-overlay :value="loading.value">
@@ -38,6 +46,7 @@ import { ref, watch, onMounted, computed } from 'vue'
 import { useCustomerStore } from '@/stores/customer'
 import debounce from 'lodash/debounce'
 import CustomerFilters from '@/views/customers/CustomerFilters.vue'
+import DataTableActions from '@/components/DataTableActions.vue'
 
 const headers = ref([
   { title: 'Name', value: 'name', sortable: true },
@@ -45,7 +54,8 @@ const headers = ref([
   { title: 'Phone', value: 'phone', sortable: true },
   { title: 'Address', value: 'address', sortable: true },
   { title: 'Date Created', value: 'created_at', sortable: true },
-  { title: 'Marketing Preferences', value: 'marketing_preferences', sortable: true }
+  { title: 'Marketing Preferences', value: 'marketing_preferences', sortable: true },
+  { title: 'Actions', value: 'actions' }
 ])
 
 const options = ref({
@@ -55,6 +65,7 @@ const options = ref({
 })
 
 const showFilters = ref(false)
+const currentOpenButton = ref(null)
 
 const defaultFilters = {
   name: '',
@@ -126,6 +137,15 @@ const filteredParams = computed(() => ({
   created_at: filters.value.created_at,
   marketing: filters.value.marketing_preferences
 }))
+
+const toggleButton = (uuid) => {
+  currentOpenButton.value = currentOpenButton.value === uuid ? null : uuid
+}
+
+const deleteCustomer = async (uuid) => {
+  await customerStore.deleteCustomer(uuid)
+  await debouncedLoadItems()
+}
 
 watch(filteredParams, debouncedLoadItems)
 
