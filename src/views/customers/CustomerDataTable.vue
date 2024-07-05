@@ -36,7 +36,7 @@
       </template>
     </v-data-table-server>
   </v-card>
-  <v-overlay :value="loading.value">
+  <v-overlay :value="loading">
     <v-progress-circular indeterminate size="64"></v-progress-circular>
   </v-overlay>
 </template>
@@ -47,6 +47,7 @@ import { useCustomerStore } from '@/stores/customer'
 import debounce from 'lodash/debounce'
 import CustomerFilters from '@/views/customers/CustomerFilters.vue'
 import DataTableActions from '@/components/DataTableActions.vue'
+import type { Customer } from '@/models/Customer'
 
 const headers = ref([
   { title: 'Name', value: 'name', sortable: true },
@@ -65,7 +66,7 @@ const options = ref({
 })
 
 const showFilters = ref(false)
-const currentOpenButton = ref(null)
+const currentOpenButton = ref<string | null>(null)
 
 const defaultFilters = {
   name: '',
@@ -84,11 +85,11 @@ const resetFilters = () => {
 }
 
 const customerStore = useCustomerStore()
-const customers = ref([])
+const customers = ref<Customer[]>([])
 const totalItems = ref(0)
 const loading = ref(false)
 
-const formatDate = (date) => {
+const formatDate = (date: any) => {
   if (!date) return null
   const d = new Date(date)
   const year = d.getFullYear()
@@ -111,7 +112,7 @@ const loadItems = async () => {
     marketing: filters.value.marketing_preferences
   }
   await customerStore.fetchCustomers(queryParams)
-  customers.value = customerStore.customers.map((customer) => ({
+  customers.value = customerStore.customers.map((customer: Customer) => ({
     ...customer,
     name: `${customer.first_name} ${customer.last_name}`,
     phone: customer.phone_number,
@@ -124,7 +125,7 @@ const loadItems = async () => {
 
 const debouncedLoadItems = debounce(loadItems, 300)
 
-const onOptionsUpdate = (newOptions) => {
+const onOptionsUpdate = (newOptions: object) => {
   options.value = { ...options.value, ...newOptions }
   loadItems()
 }
@@ -138,11 +139,11 @@ const filteredParams = computed(() => ({
   marketing: filters.value.marketing_preferences
 }))
 
-const toggleButton = (uuid) => {
+const toggleButton = (uuid: string) => {
   currentOpenButton.value = currentOpenButton.value === uuid ? null : uuid
 }
 
-const deleteCustomer = async (uuid) => {
+const deleteCustomer = async (uuid: string) => {
   await customerStore.deleteCustomer(uuid)
   await debouncedLoadItems()
 }

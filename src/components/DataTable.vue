@@ -57,8 +57,10 @@ const sales = ref([
     amount: '$ 14'
   }
 ])
-
-const statusColors = {
+interface StatusColors {
+  [key: string]: string;
+}
+const statusColors: StatusColors = {
   Open: 'blue',
   'Pending payment': 'orange',
   Paid: 'green',

@@ -13,11 +13,12 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from 'vue'
+import type { Customer } from '@/models/Customer'
 
-const props = defineProps({
-  item: Object,
-  currentOpenButton: String
-})
+const props = defineProps<{
+  item: Customer,
+  currentOpenButton: string | null,
+}>();
 
 const emit = defineEmits(['toggle', 'delete'])
 

@@ -67,9 +67,13 @@ import { toRefs } from 'vue'
 import { VDateInput } from 'vuetify/labs/VDateInput'
 
 const props = defineProps({
-  filters: Object,
+  filters: {
+    type: Object,
+    default: () => ({})
+  },
   showFilters: Boolean
 })
+
 
 const { filters, showFilters } = toRefs(props)
 </script>
