@@ -74,7 +74,6 @@ const props = defineProps({
   showFilters: Boolean
 })
 
-
 const { filters, showFilters } = toRefs(props)
 </script>
 

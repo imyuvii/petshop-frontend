@@ -24,10 +24,10 @@ export const useCustomerStore = defineStore('customer', () => {
     }
 
     if (options.sortBy && options.sortBy.length > 0) {
-      requestParams.sortBy = options.sortBy[0];
+      requestParams.sortBy = options.sortBy[0]
     }
     if (options.sortDesc !== undefined && options.sortDesc.length > 0) {
-      requestParams.desc = options.sortDesc[0];
+      requestParams.desc = options.sortDesc[0]
     }
     try {
       const response = await axios.get(`${API_BASE_URL}/admin/user-listing`, {

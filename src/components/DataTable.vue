@@ -58,7 +58,7 @@ const sales = ref([
   }
 ])
 interface StatusColors {
-  [key: string]: string;
+  [key: string]: string
 }
 const statusColors: StatusColors = {
   Open: 'blue',
