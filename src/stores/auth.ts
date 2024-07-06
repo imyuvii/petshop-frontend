@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('auth', {
         }
         return false
       } catch (error) {
-        console.error('Login failed:', error)
+        this.$reset()
         return false
       }
     },
@@ -40,12 +40,17 @@ export const useAuthStore = defineStore('auth', {
             Authorization: `Bearer ${this.token}`
           }
         })
-        this.token = null
-        localStorage.removeItem('token')
-        delete axios.defaults.headers.common['Authorization']
+        this.$reset()
       } catch (error) {
+        // handle error
         console.error('Logout failed:', error)
       }
+    },
+    $reset() {
+      this.token = null
+      this.user = null
+      localStorage.removeItem('token')
+      delete axios.defaults.headers.common['Authorization']
     }
   },
   getters: {
