@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>Latest sales</v-card-title>
     <v-data-table :items="sales" :headers="headers">
-      <template v-slot:item.status="{ item }">
+      <template v-slot:[`item.status`]="{ item }">
         <v-chip :color="statusColors[item.status]" dark>{{ item.status }}</v-chip>
       </template>
     </v-data-table>
@@ -13,11 +13,11 @@
 import { ref } from 'vue'
 
 const headers = ref([
-  { text: 'Order UUID', value: 'uuid' },
-  { text: 'Status', value: 'status' },
-  { text: '# Ordered Products', value: 'products' },
-  { text: 'Customer', value: 'customer' },
-  { text: 'Amount', value: 'amount' }
+  { title: 'Order UUID', value: 'uuid', sortable: true },
+  { title: 'Status', value: 'status', sortable: true },
+  { title: '# Ordered Products', value: 'products', sortable: true },
+  { title: 'Customer', value: 'customer', sortable: true },
+  { title: 'Amount', value: 'amount', sortable: true }
 ])
 
 const sales = ref([
