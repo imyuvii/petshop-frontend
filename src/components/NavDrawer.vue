@@ -16,9 +16,6 @@
 <script setup lang="ts">
 const items = [
   { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/' },
-  { title: 'All tickets', icon: 'mdi-ticket', route: '/all-tickets' },
-  { title: 'Shipment Locator', icon: 'mdi-map-marker', route: '/shipment-locator' },
-  { title: 'Customers', icon: 'mdi-account', route: '/customers' },
-  { title: 'Products', icon: 'mdi-cube', route: '/products' }
+  { title: 'Customers', icon: 'mdi-account', route: '/customers' }
 ]
 </script>
