@@ -4,8 +4,21 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
     ports:
       - "8080:8080"
+    expose:
+      - "8080"
+
+  nginx:
+    image: nginx:stable-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production-stage
+    ports:
+      - "80:80"
+    depends_on:
+      - app
