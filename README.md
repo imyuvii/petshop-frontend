@@ -1,52 +1,70 @@
 # Petshop
 
-This template should help get you started developing with Vue 3 in Vite.
+## Getting Started
 
-## Recommended IDE Setup
+### Prerequisites
+- Node 20 or higher
+- Npm 10 or higher
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Clone the repository
+```shell
+git clone https://github.com/imyuvii/petshop-frontend.git
+cd petshop-frontend
+```
 
-## Type Support for `.vue` Imports in TS
+### Run the docker container
+```shell
+docker-compose up -d --build
+```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### Open the Browser and Navigate to the Following URL
+- http://127.0.0.1/
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Credentials 
+```shell
+username: admin@buckhill.co.uk
+password: admin
+```
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+## Install Development Dependencies 
+```shell
 npm install
 ```
 
+### Setup Environment Variables
+```shell
+cp .env.production .env
+```
+## Development
 ### Compile and Hot-Reload for Development
-
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+```sh
+npm run test
+```
 
+### Lint with [ESLint](https://eslint.org/)
+```sh
+npm run lint
+```
+
+### Prettier with [Prettier](https://prettier.io/)
+```sh
+npm run format
+```
+
+### Type-Check, Compile, and Minify for Production
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Features Implemented
+- [x] Login
+- [x] Logout
+- [x] Customers list with Pagination, Search, and Sort
+- [x] Customer Delete
+- [x] Vitest Cases
