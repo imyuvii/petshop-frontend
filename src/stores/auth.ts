@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import type { Router } from 'vue-router'
 
 const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL
 
@@ -42,9 +43,12 @@ export const useAuthStore = defineStore('auth', {
         })
         this.$reset()
       } catch (error) {
-        // handle error
         console.error('Logout failed:', error)
       }
+    },
+    async handleUnauthorized(router: Router) {
+      this.$reset()
+      await router.push('/login')
     },
     $reset() {
       this.token = null

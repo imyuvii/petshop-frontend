@@ -1,13 +1,17 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const useCustomerStore = defineStore('customer', () => {
+  const authStore = useAuthStore()
   const customers = ref([])
   const totalItems = ref(0)
   const loading = ref(false)
+  const router = useRouter()
 
   const fetchCustomers = async (options: any = {}) => {
     loading.value = true
@@ -41,7 +45,11 @@ export const useCustomerStore = defineStore('customer', () => {
         console.error('Unexpected API response structure:', response.data)
       }
     } catch (error) {
-      console.error('Error fetching customers:', error)
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        await authStore.handleUnauthorized(router)
+      } else {
+        console.error('Error fetching customers:', error)
+      }
     } finally {
       loading.value = false
     }
@@ -51,7 +59,11 @@ export const useCustomerStore = defineStore('customer', () => {
     try {
       await axios.delete(`${API_BASE_URL}/admin/user-delete/${uuid}`)
     } catch (error) {
-      console.error('Error deleting customer:', error)
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        await authStore.handleUnauthorized(router)
+      } else {
+        console.error('Error deleting customer:', error)
+      }
     }
   }
 
